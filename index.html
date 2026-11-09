@@ -1,0 +1,1134 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Someone Special ❤️</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Georgia, serif;
+    background: #fff0f3;
+    color: #56323c;
+    overflow-x: hidden;
+}
+
+.page {
+    display: none;
+    min-height: 100vh;
+    padding: 35px 18px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    animation: fadeIn 0.7s ease;
+}
+
+.page.active {
+    display: flex;
+}
+
+#page1.active .card { animation: welcomeIn 0.9s ease both; }
+#page2.active .card { animation: letterIn 0.8s ease both; }
+#page3.active .card { animation: galleryIn 0.8s ease both; }
+#page4.active .card { animation: memoriesIn 0.8s ease both; }
+#page5.active .card { animation: surpriseIn 0.8s ease both; }
+
+@keyframes welcomeIn {
+    from { opacity: 0; transform: scale(0.94) translateY(24px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes letterIn {
+    from { opacity: 0; transform: translateX(35px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+@keyframes galleryIn {
+    from { opacity: 0; transform: translateY(24px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes memoriesIn {
+    from { opacity: 0; transform: rotate(-1deg) translateY(18px); }
+    to { opacity: 1; transform: rotate(0) translateY(0); }
+}
+@keyframes surpriseIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    margin-bottom: 20px;
+    color: #c44569;
+}
+
+h2 {
+    margin-bottom: 18px;
+    color: #a53860;
+}
+
+p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    max-width: 650px;
+    margin: 12px auto;
+}
+
+.heart {
+    font-size: 65px;
+    animation: heartbeat 1.2s infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.18); }
+}
+
+.card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    width: min(100%, 720px);
+    box-shadow: 0 8px 25px #d58b9b55;
+}
+
+
+
+.main-btn, .answer-btn {
+    border: none;
+    padding: 13px 24px;
+    border-radius: 30px;
+    background: #d94f78;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 8px;
+    transition: 0.3s;
+}
+
+.main-btn:hover, .answer-btn:hover {
+    background: #a8325b;
+    transform: translateY(-3px);
+}
+
+.blinking-heart {
+    display: inline-block;
+    margin-left: 8px;
+    animation: blinkHeart 0.8s ease-in-out infinite;
+}
+@keyframes blinkHeart {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.35; transform: scale(1.18); }
+}
+.countdown-number {
+    font-size: clamp(5rem, 20vw, 10rem);
+    font-weight: bold;
+    color: #c44569;
+    font-variant-numeric: tabular-nums;
+}
+
+#countdownQuestion {
+    display: none;
+}
+#countdownOptions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+#noLoveButton {
+    position: relative;
+    transition: left 0.25s ease, top 0.25s ease;
+}
+#countdownOptions .answer-btn { min-width: 190px; }
+#countdownQuestion.success-state h3,
+#countdownQuestion.success-state #countdownOptions { display: none; }
+#countdownQuestion.success-state .answer-feedback {
+    font-size: clamp(1.25rem, 4vw, 1.8rem);
+    line-height: 1.5;
+    padding: 12px 4px;
+}
+.question-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px auto 0;
+    padding: 24px 20px;
+    background: #fff5f7;
+    border: 2px dashed #e99ab0;
+    border-radius: 18px;
+    width: min(100%, 550px);
+    text-align: center;
+}
+
+#countdownOptions .answer-btn, .question-box .answer-btn {
+    position: relative;
+    transition: left 0.25s ease, top 0.25s ease;
+}
+
+.question-box .answer-btn {
+    min-width: 170px;
+    max-width: 100%;
+}
+
+.question-box .answer-feedback {
+    width: 100%;
+}
+
+.question-box h3 {
+    margin-bottom: 12px;
+    color: #a53860;
+}
+
+.answer-feedback {
+    min-height: 28px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #c44569;
+}
+
+.answer-btn:disabled {
+    opacity: 0.65;
+    cursor: default;
+}
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+    margin: 20px auto;
+    width: min(100%, 600px);
+}
+
+.photo-grid img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border: 7px solid white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px #0002;
+    transform: rotate(-2deg);
+}
+
+.photo-grid img:nth-child(even) {
+    transform: rotate(2deg);
+}
+
+.memory {
+    background: #fff;
+    margin: 15px auto;
+    padding: 18px;
+    border-radius: 15px;
+    width: min(100%, 550px);
+    box-shadow: 0 5px 15px #0001;
+}
+
+#finalGift {
+    display: none;
+    margin-top: 25px;
+    animation: fadeIn 1s ease;
+}
+
+#finalGift h2 {
+    font-size: 2rem;
+}
+
+.confetti, .flower {
+    position: fixed;
+    top: -15px;
+    width: 10px;
+    height: 15px;
+    z-index: 20;
+    pointer-events: none;
+    animation: fall 3s linear forwards;
+}
+
+.page-effect {
+    position: fixed;
+    top: -40px;
+    z-index: 19;
+    pointer-events: none;
+    animation: themedFall 4s ease-in forwards;
+}
+@keyframes themedFall {
+    0% { opacity: 0; transform: translateY(-10vh) rotate(0) scale(0.7); }
+    12% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(110vh) rotate(420deg) scale(1.15); }
+}
+
+.flower {
+    top: -40px;
+    z-index: 19;
+    pointer-events: none;
+    animation-name: flowerFall;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+}
+
+@keyframes flowerFall {
+    to { transform: translateY(110vh) rotate(540deg); opacity: 0; }
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+@media(max-width: 500px) {
+    .photo-grid img {
+        height: 150px;
+    }
+
+    .card {
+        padding: 22px 15px;
+    }
+}
+
+#welcomeScreen, #endingScreen {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: none;
+    place-items: center;
+    overflow: hidden;
+    color: white;
+    text-align: center;
+    background: radial-gradient(circle at 50% 38%, #ff9fc5 0, #c44569 42%, #401b3c 100%);
+}
+#welcomeScreen { display: grid; z-index: 1100; }
+#welcomeScreen.is-hidden { animation: welcomeFadeOut .8s ease forwards; pointer-events: none; }
+#welcomeScreen.is-hidden .ending-content { animation: none; }
+#endingScreen.is-visible { display: grid; animation: endingFadeIn 1s ease both; }
+.ending-content { position: relative; z-index: 2; padding: 2rem; animation: endingRise 1.2s cubic-bezier(.2,.8,.2,1) both; }
+.ending-content .ending-heart { font-size: clamp(3rem, 10vw, 6rem); animation: endingHeartbeat 1.4s ease-in-out infinite; }
+.ending-content h1 { margin: .2em 0; font-size: clamp(3rem, 12vw, 7rem); letter-spacing: .12em; text-shadow: 0 5px 25px #5b1e4a99; }
+.ending-content p { font-size: clamp(1rem, 3vw, 1.4rem); }
+.ending-particle { position: absolute; bottom: -60px; left: var(--left); font-size: var(--size); pointer-events: none; animation: endingFloat var(--duration) linear var(--delay) forwards; }
+@keyframes welcomeFadeOut { to { opacity: 0; visibility: hidden; } }
+@keyframes endingFadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes endingRise { from { opacity: 0; transform: translateY(35px) scale(.92); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes endingHeartbeat { 50% { transform: scale(1.16); } }
+@keyframes endingFloat { to { transform: translate3d(0, -115vh, 0) rotate(360deg); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { #endingScreen.is-visible, .ending-content, .ending-content .ending-heart, .ending-particle { animation-duration: .01ms !important; animation-iteration-count: 1 !important; } }
+@media (prefers-reduced-motion: reduce) { #welcomeScreen.is-hidden { animation-duration: .01ms !important; } }
+
+.photo-zoom-trigger { cursor: zoom-in; }
+#photoZoom {
+    position: fixed; inset: 0; z-index: 1200; display: none; place-items: center;
+    padding: 56px 20px 20px; background: rgba(20, 8, 18, .9);
+}
+#photoZoom.is-visible { display: grid; animation: endingFadeIn .2s ease both; }
+#photoZoom img { max-width: min(96vw, 1500px); max-height: 88vh; width: auto; height: auto; object-fit: contain; border-radius: 12px; box-shadow: 0 12px 50px #0008; cursor: zoom-out; }
+#photoZoomClose { position: absolute; top: 14px; right: 18px; border: 0; border-radius: 50%; width: 44px; height: 44px; color: #56323c; background: white; font: 32px/1 Arial, sans-serif; cursor: pointer; }
+@media (prefers-reduced-motion: reduce) { #photoZoom.is-visible { animation-duration: .01ms !important; } }
+</style>
+</head>
+
+<body>
+
+<div id="welcomeScreen" class="endingScreen" aria-hidden="false">
+    <div class="ending-content">
+        <div class="ending-heart">&#128150;</div>
+        <h1>WELCOME</h1>
+        <p>Ek chotuuu sa surprise apke liye &#128149;</p>
+    </div>
+</div>
+
+<!-- COUNTDOWN SCREEN -->
+<section class="page active" id="countdownPage" aria-live="polite">
+    <div class="card">
+        <h1 id="countdownTitle">Something Special for My Very Special Person <span class="blinking-heart" aria-label="blinking heart">❤️</span></h1>
+        <div id="countdownDisplay">
+            <div class="countdown-number" id="countdownNumber">10</div>
+            <p>Get ready for something special!</p>
+        </div>
+        <div class="question-box" id="countdownQuestion">
+            <h3>Aage Jaane se Phele yh btao kya ap merese pyaar krti ho? 💖🥺</h3>
+            <div id="countdownOptions">
+                <button class="answer-btn" onclick="answerLoveQuestion(true)">haan maalikk bhaut jyda..</button>
+                <button class="answer-btn" id="noLoveButton" onclick="answerLoveQuestion(false)">bikul bhi ni</button>
+            </div>
+            <p class="answer-feedback" id="loveFeedback" aria-live="polite"></p>
+        </div>
+    </div>
+</section>
+
+<!-- PAGE 1: WELCOME -->
+<section class="page" id="page1">
+
+    <div class="card">
+        <div class="heart">❤️</div>
+
+        <h1>Happy Birthday Meri Pyaari si cuteee si Itishree (malkinnnn)! </h1>
+
+        <img src="photos/photo1.jpeg" alt="A special birthday memory" style="display:block; width:min(100%, 560px); max-height:460px; object-fit:cover; margin:20px auto; border:7px solid white; border-radius:16px; box-shadow:0 5px 18px #0002;">
+
+        <p>
+            Pta h apko malkinn ki aaj ka date kya h 11:11... aur aap meri 11/11 ho 🫠🫠.. Apke mallik ke taraf se chota sa birthday surprise h yh apke liye
+            utnaa accha tho ni hai pr bhaut pyaar aur dil se bnaye h... umid h ki apko yh pasand ayeeega😁😁
+            
+        </p>
+
+        <p>
+           tho aage jaane se phele yh btaeye ki
+        </p>
+
+        <div class="question-box" data-correct="yes" data-next="2">
+            <h3>Hmesa ki tarah yh message bhi apne ignore krdiya na? 😒😒</h3>
+
+            <button class="answer-btn" data-answer="yes"
+                onclick="checkAnswer(this)">Ni mallikkk aisa ni hai ❤️</button>
+
+            <button class="answer-btn" data-answer="no"
+                onclick="checkAnswer(this)">Bye baat ni kro 😤😤</button>
+
+            <p class="answer-feedback"></p>
+        </div>
+    </div>
+</section>
+
+
+<!-- PAGE 2: BIRTHDAY LETTER -->
+<section class="page" id="page2">
+
+    <div class="card">
+        <div class="heart">💌</div>
+
+        <h1>Kuch Baatein Mere Dil Ki 🤗🤗</h1>
+
+        <p>
+            Wo din jb maine apko pheli bar dekha... Ek choti si ldki yaani ki aap merii bauni malkinnn ji😅😅.. Apke height se bada tho apka trolly bag lgra tha headphones lga kr khulee baalon mein jarhi thi ekdamm merii pyariii dayaan lgri thi 😂😂.. Mere pr jaadu krke chliii gyi... 
+        
+        </p>
+
+        <p>
+            Accha hua aap usdin late ni thi ya phir hm jldi ni the ni tho mere life ka sbse important aur pyari person se hm kaise mil paate..❤️❤️
+            pr pta ni tha ki aap itni acchi, caring, pyariii, gusseli😤, chant, ladakinnn aur understanding pr ladai krte time apka understanding personality kaha chla jata h😒😒... 
+            apko dekh kr lga ki aap kitnii pyarri ho pr jb apse insta pr baatin start hui tb pta chla ki aap bilkul waisi hi ho jaisi dikhi thi ekdaam Dayaan😝😝... pr jaisi  bhi ho ab tho merii ho💕... 
+            mere dillll mein tho bhaut kuc tha pr apse bolne pr aap mna krdi khadusss😤😤... jaao na pr khud message ki na😏😏... aur jb aap wo mess walii didi ke naam se chidhane lgi hmko tb tho pta chll hi gya hmko ki kuch tho h apkeee dil mein pr bta nhi rhii ho abhi😁...
+            
+        </p>
+
+        <p>
+            fir ata h wo din jb hm finally samne milte h🫠🫠... mera tho dar se halat khrb tha ki message pr itna marne ka baat krti ho kahi sach mein na maardo chakuuu se btech ka fees barbad hojata😅😅... pr samne se milne ke baad pta chla ki aap utni bhi dayaan ni ho jitna ki message pr bnti thi balkii aur jydaa ho😝😝...
+            itna ready hokr ayii thi jaise ki saadi ke liye ldke wale dekhne arhe ho😂😂... ldke wale ni ldke hi ayee the dekhne tho🤭🤭... kitnii pyariii lg rhi thi aappppppppp🫠🫠...
+            
+        </p>
+        <p>
+            aap hmesa puchti ho na ki hmko apme kya pasand h? ap mereko kyuu achii lgii? koi apko acha kaise bol skta h?
+            Tho sunyee apkii ankhee itni achhi hai ki bs usse dekhtee hi rh jayee hmesa, apke goluu moluuu se cheeks🫠 kitneee acche lgteee h apka cutee sa face aur upar se apke cutee se facial expression koi bhi dekhega tho pighall jayega🫠🫠..
+            apke lips ke upar ke til🙈🙈 nazar hi ni hthti h aur agar nazar ht bhi gya tho apke lips pr chla jata h kitnnee pyaree h🫠🫠...
+            ab hlka nichee aate hai apka gla🫠🫠 uskii tho baat hi alag h itneee sundar dikhte h mnaa krta h apka gala dava se😝😝 majak tha 😅..
+            itna pyara gla h apka aao uspr nishan bna dete h mere pyarr ka🤭🤭... sorrry thoda bhatak gyee 😅😅 itni pyaari ho hi ki apka jb bhi baat hota h ya ap  yad aati ho (ab yh ni bolna ki yad aati ho mtlb bhul gyee tumko hm😒😒) tho pyaar wala hormones jaag jata h mera🙈🙈...
+            apki sundarta ke alawa apki baccho jaisi cute cute si harkatee kitnii pyarii lgti h 🫠🫠🫠. apko parehsan krne mein bhaut accha lgta h zindagi bhar pareshan krege ab tho😁😁😁...
+            ap jo mere se ruthh jaati ho aur gussa hone ka natak krti ho raste ke bich mein aur khud mann jati ho jb apko ad ata h ki hmlog raste ke bich h kitnna accha lgta h🫠🫠...
+            itna care aur pyaar krti ho merese pr khud ka bhi tho dhyan rkha kro jo chiz mna krte h wohi krti ho aur garbar krke ronee jaise face bna letii ho kbhi tho sunti hi ni mera... apki mumma apko 9 mahine pet mein rkh kr apke itnee pyaree pyaree ears bnayi h uska use kiye kro aur mera baat suna kro😅😅...
+            time se khana tho khaya jata ni apse bs har time bahar ka khati ho maggie, chai, chips, cold-drinks, thik h bahar ka khao pr itna bhi ni ki mess ka paisa waaste kro apne papa ka😒😒 jb mess se khana hi ni tho kya fyda paisa dene ka kbhi tho breakfast time se krti hi ni itna bolne pr khatti ho😒😒...
+            achhe se khaya kro malkinn smghiii ap tho meri pyarii si malkinn ho na achhi bacchi😘😘... chloo bhaut hogya hm likhege apke baare mein tho kbhi khtm hi ni hoga 😅😅... 
+            bs hmko maaf krdiya kro kbhi kbhi gussa krdete h bhaut apke upar kyuki apse bhaut pyarr krte h isiliye apke upar thoda jyda chilla dete h kuch acccha bolne ke liye... pr glti bhi tho apki hi hai ek baar mein sunti hi ni ho😒😒...
+            I lovee youuu merii pyariii siii chotiiii siii cuteee siii goluuu moluuu malkinnnnnnnnnnnnn💕😘😘❤️🥰...
+        </p>
+
+        <p><b> Happyy Birthdayyy merii DEVIII Ko ❤️</b></p>
+
+        <div class="question-box" data-correct="ofcourse" data-next="3">
+            <h3>Kya Apko Mere Pr Pyarr Arha h? 😊</h3>
+
+            <button class="answer-btn" data-answer="yes"
+                onclick="checkAnswer(this)">Ap hmko DAYAAN kaise bolee jaao baat ni kro 😤</button>
+
+            <button class="answer-btn" data-answer="ofcourse"
+                onclick="checkAnswer(this)">Hann mallikk itna ki apko A3 krduu 😊❤️</button>
+
+            <p class="answer-feedback"></p>
+        </div>
+    </div>
+</section>
+
+
+<!-- PAGE 3: PHOTO GALLERY -->
+<section class="page" id="page3">
+
+    <div class="card">
+        <div class="heart">📸</div>
+
+        <h1>Humari Pyarii Yaadeinn🫠🫠</h1>
+
+        <p>
+            Har Ek Picture Ek Kahanii btata h humarii, aur har memory
+            ka ek special place h mere Dil mein🫠🫠...
+        </p>
+
+
+        <div class="photo-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px;">
+    <figure class="photo-item" style="margin:0; padding:10px; border-radius:16px; background:rgba(255,255,255,.75);">
+
+        <img src="photos/photo2.jpeg" alt="Memory 2" style="width:100%; max-height:460px; object-fit:contain; display:block; background:rgba(255,255,255,.5); border-radius:12px;">
+        <figcaption style="min-height:42px; margin-top:8px; padding:8px; border-radius:10px; background:rgba(255,255,255,.7);">Humara Phela Photo Sath Mein🫠🫠 Dono Bhonduu Ek Frame Mein🤣🤣...</figcaption>
+    </figure>
+    <figure class="photo-item" style="margin:0; padding:10px; border-radius:16px; background:rgba(255,255,255,.75);">
+        <img src="photos/photo3.jpeg" alt="Memory 3" style="width:100%; max-height:460px; object-fit:contain; display:block; background:rgba(255,255,255,.5); border-radius:12px;">
+        <figcaption style="min-height:42px; margin-top:8px; padding:8px; border-radius:10px; background:rgba(255,255,255,.7);">Yh Pic Dekh kr tho mujhe bss ANKHEEEE TERIIII wala song yaad ata h🫠🫠...</figcaption>
+    </figure>
+    <figure class="photo-item" style="margin:0; padding:10px; border-radius:16px; background:rgba(255,255,255,.75);">
+        <img src="photos/photo4.jpeg" alt="Memory 4" style="width:100%; max-height:460px; object-fit:contain; display:block; background:rgba(255,255,255,.5); border-radius:12px;">
+        <figcaption style="min-height:42px; margin-top:8px; padding:8px; border-radius:10px; background:rgba(255,255,255,.7);">Yh pic dekh kr aisa lgta h ki agar hm usstime apke pass hote tho apko Piche se HUG krlete chortee hi ni🙈🙈...</figcaption>
+    </figure>
+    <figure class="photo-item" style="margin:0; padding:10px; border-radius:16px; background:rgba(255,255,255,.75);">
+        <img src="photos/photo5.jpeg" alt="Memory 5" style="width:100%; max-height:460px; object-fit:contain; display:block; background:rgba(255,255,255,.5); border-radius:12px;">
+        <figcaption style="min-height:42px; margin-top:8px; padding:8px; border-radius:10px; background:rgba(255,255,255,.7);">Ekdmm merii cutee si pyariii si malkinnn lgrii ho😘😘...</figcaption>
+    </figure>
+    <figure class="photo-item" style="margin:0; padding:10px; border-radius:16px; background:rgba(255,255,255,.75);">
+        <img src="photos/photo6.jpeg" alt="Memory 6" style="width:100%; max-height:460px; object-fit:contain; display:block; background:rgba(255,255,255,.5); border-radius:12px;">
+        <figcaption style="min-height:42px; margin-top:8px; padding:8px; border-radius:10px; background:rgba(255,255,255,.7);">Dekhaa kaisee ANKHEE dikha kr draa rhi ho hmko🥺🥺...</figcaption>
+    </figure>
+    <figure class="photo-item" style="margin:0; padding:10px; border-radius:16px; background:rgba(255,255,255,.75);">
+        <img src="photos/photo7.jpeg" alt="Memory 7" style="width:100%; max-height:460px; object-fit:contain; display:block; background:rgba(255,255,255,.5); border-radius:12px;">
+        <figcaption style="min-height:42px; margin-top:8px; padding:8px; border-radius:10px; background:rgba(255,255,255,.7);">Kitniii pyariii ankheee h apkiiiii🫠🫠🫠 aur sundarrr sa facee🙈🙈...</figcaption>
+    </figure>
+    <figure class="photo-item" style="margin:0; padding:10px; border-radius:16px; background:rgba(255,255,255,.75);">
+        <img src="photos/photo8.jpeg" alt="Memory 8" style="width:100%; max-height:460px; object-fit:contain; display:block; background:rgba(255,255,255,.5); border-radius:12px;">
+        <figcaption style="min-height:42px; margin-top:8px; padding:8px; border-radius:10px; background:rgba(255,255,255,.7);">Sareee phen ke pic leleti hu SIRJIII ke familyyy waloo ko bhejnaa bhi tho hai😅😅...</figcaption>
+    </figure>
+    <figure class="photo-item" style="margin:0; padding:10px; border-radius:16px; background:rgba(255,255,255,.75);">
+        <img src="photos/photo9.jpeg" alt="Memory 9" style="width:100%; max-height:460px; object-fit:contain; display:block; background:rgba(255,255,255,.5); border-radius:12px;">
+        <figcaption style="min-height:42px; margin-top:8px; padding:8px; border-radius:10px; background:rgba(255,255,255,.7);">Aree Maine tho bhull hi gyi ki mai LADKII hu thoda Sharmaa letii hu🙈🙈...</figcaption>
+    </figure>
+    <figure class="photo-item" style="margin:0; padding:12px; border-radius:16px; background:rgba(255,255,255,.75);">
+        <img src="photos/photo10.jpeg" alt="Memory 10" style="width:100%; max-height:460px; object-fit:contain; display:block; background:rgba(255,255,255,.5); border-radius:12px;">
+        <figcaption style="min-height:42px; margin-top:8px; padding:8px; border-radius:10px; background:rgba(255,255,255,.7);">Koi Hai kya meresee jyda sundarrr ekdmm sirjii ki heroinee lgrii hu 🤭🤭...</figcaption>
+    </figure>
+
+    <figure class="photo-item" style="margin:0; padding:12px; border-radius:16px; background:rgba(255,255,255,.75);">
+        <img src="photos/photo11.jpeg" alt="Memory 11" style="width:100%; max-height:460px; object-fit:contain; display:block; background:rgba(255,255,255,.5); border-radius:12px;">
+        <figcaption style="min-height:42px; margin-top:8px; padding:8px; border-radius:10px; background:rgba(255,255,255,.7);">Khaduss sirjii ni ayege dekhnee bolkr akhirrr khud ayee na dekhneee😏😏...</figcaption>
+    </figure>
+
+</div>
+        <div class="question-box" data-correct="always" data-next="4">
+
+            <h3>Kya apkoo meree sathh aur aisii bhauttt saari memoriees bnanii hai merii pyarii malkinnn🫠🫠?</h3>
+
+
+                <button class="answer-btn" data-answer="always"
+                                    onclick="checkAnswer(this)">Yh bhi koiii puchnee walii baat h aapke saath ni memories bnayege tho aur kiskee saath meree pyaree khaduuss mallik😘😘</button>
+
+                            <button class="answer-btn" data-answer="maybe"
+                                    onclick="checkAnswer(this)">Phele ghumanee tho leke chloo khaduus mallik😏😏</button>
+
+            <p class="answer-feedback"></p>
+        </div>
+    </div>
+</section>
+
+
+<!-- PAGE 4: SPECIAL MEMORIES -->
+<section class="page" id="page4">
+
+    <div class="card">
+        <div class="heart">🌷</div>
+
+        <h1>Mera Din kya chizz se Special hojata h🤭🤭</h1>
+
+        <div class="memory">
+            <h2>Apkii Smile Dekh kr 🫠🫠</h2>
+            <p>Jb bhi din accha ni rhta aur hm apko smile krta hua dekh lete h tho mera dinn bhautt accha hojata h lgtaa h ki bss apko smilee krte hue dekhtee rheee🫠🫠🫠.</p>
+        </div>
+
+        <div class="memory">
+            <h2>Apka Pyaraa Sa Face ✨</h2>
+            <p>Kuchhh tho jaadu h apki shakal mein koi itnna pyarrr aur dayaaan kaisee dekh skta h😅😅.</p>
+        </div>
+
+        <div class="memory">
+            <h2>Apka Presence ❤️</h2>
+            <p>Apka rhnaa hi Special h mere liyee meri pyarii maliknnnn🫠🫠.</p>
+        </div>
+
+        <div class="question-box" data-correct="special" data-next="5">
+            <h3>Apko Pta h Ap Kitniii Special Ho Mere Liyeee? 💖</h3>
+
+            <button class="answer-btn" data-answer="special"
+                onclick="checkAnswer(this)">Haan mere pyaree mallikk ap hmko bhaut pyarr krte ho pr kuchhh aur bhi kiya kro apsee aur kuchh hota hi ni h🤣🤣 </button>
+
+            <button class="answer-btn" data-answer="again"
+                onclick="checkAnswer(this)">Ni App btaoge tb na Mallik 🥺</button>
+
+            <p class="answer-feedback"></p>
+        </div>
+    </div>
+</section>
+
+
+<!-- PAGE 5: FINAL SURPRISE -->
+<section class="page" id="page5">
+
+    <div class="card">
+        <div class="heart">🎁</div>
+
+        <h1>Ek Last Surprise!</h1>
+
+        <p>
+            Aage Jane se phele,
+            Mera last sawal ka jawab do.
+        </p>
+
+                        <div class="question-box" data-correct="ready" data-next="6">
+            <h3>Kyaa AAP SAACH MEIN MERE SE PYAAR KRTI HO YA PHIR H JO SOCH RHE WOHI HAI BS? ✨</h3>
+
+            <button class="answer-btn" data-answer="ready"
+                onclick="checkAnswer(this)">Haa mallik ap sahii sochh rhe ho apke liye mere mein bs HAWAS hai🌚🌚</button>
+
+            <button class="answer-btn" data-answer="notyet"
+                onclick="checkAnswer(this)">haan mallik hm apseee bhautt jydaa pyarrr krte h🙈</button>
+
+            <p class="answer-feedback"></p>
+        </div>
+
+        <div id="finalGift">
+            <div class="heart">🎂</div>
+
+            <h2>Happy Birthday Once Again! ❤️</h2>
+
+            <p>
+                May your life always be filled with laughter,
+                love, good health, and beautiful surprises.
+            </p>
+
+            <p>
+                Keep smiling, keep shining, and never stop being
+                the wonderful person you are.
+            </p>
+
+            <h1>Lots of Love! 💗</h1>
+        </div>
+    </div>
+</section>
+    <!-- PAGE 6: FILL IN THE BLANK -->
+    <section class="page" id="page6">
+        <div class="card">
+            <h1>Ek Chota Sa Sawaal 🤭</h1>
+            <div class="question-box">
+                <h3>Appko pta h ki aap kaha rhtii ho malkinn meriii🤭🤭?</h3>
+                <input id="locationAnswer" type="text" placeholder="Apna jawab yahan likho..." autocomplete="off" style="width:100%; box-sizing:border-box; padding:14px; margin:12px 0; border:2px solid #f3a6c8; border-radius:12px; font-size:1rem;">
+                <button class="answer-btn" onclick="checkLocationAnswer()">Submit 💌</button>
+                <p class="answer-feedback" id="locationFeedback"></p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- PAGE 7: HEADPHONE CHECK -->
+    <section class="page" id="page7">
+        <div class="card">
+            <h1>Ek Chota Sa Headphone Check 🎧</h1>
+            <h3>Kya aap headpone lgayi ho merii pyarii malkinn? ni lgayi tho lgaa lo thik..</h3>
+            <div id="headphoneOptions">
+                <button class="answer-btn" onclick="startHeadphoneCheck()">HAAN MALLIK LGA LI</button>
+                <button class="answer-btn" onclick="startHeadphoneCheck()">JI MALLIK JAISAA AAP BOOLEN</button>
+            </div>
+            <p class="answer-feedback" id="headphoneFeedback"></p>
+            <button class="answer-btn" id="confirmHeadphone" style="display:none" onclick="confirmHeadphone()">haan mallik 🙈</button>
+            <button class="answer-btn" id="proceedFinal" style="display:none" onclick="proceedToFinalSurprise()">Aage chlein 💝</button>
+        </div>
+    </section>
+
+    <!-- PAGE 8: FINAL SURPRISE -->
+    <section class="page" id="page8">
+        <div class="card">
+            <div class="heart">🎂</div>
+            <h1>Ek Last Surprise!</h1>
+            <h2>Happy Birthday Once Again Merii Pyarii Malkinnnn 💗</h2>
+            <p>Hamesa aise hi smile krtii rahoo, apka har wish pura ho aur aap jo krna chahti ho wo sb ho🥰🥰...</p>
+            <img src="photos/photo12.jpeg" alt="A special final surprise memory" style="display:block; width:100%; max-width:760px; height:auto; max-height:none; object-fit:contain; margin:24px auto; border:8px solid white; border-radius:16px; box-shadow:0 6px 22px #0003;">
+            
+            <h1>APKEE MALLIK KA TARAF SE APKO BHAUT SARA PYARRRRR! 💗</h1>
+            <button class="answer-btn" onclick="openEndCodePage()">THE END</button>
+        </div>
+    </section>
+
+    <section class="page" id="page9">
+        <div class="card">
+            <h1>ABHI THO EK CHIZZ REH HI GYAA WO NI DEKHNA H KYA APKO?</h1>
+            <p>Hint: code ek number hai 🔢</p>
+            <input id="endCodeInput" type="text" inputmode="numeric" placeholder="Code yahan likho..." autocomplete="off" style="width:100%; box-sizing:border-box; padding:14px; margin:12px 0; border:2px solid #f3a6c8; border-radius:12px; font-size:1rem;">
+            <button class="answer-btn" onclick="checkEndCode()">Enter</button>
+            <p class="answer-feedback" id="endCodeFeedback" aria-live="polite"></p>
+        </div>
+    </section>
+
+    <section class="page" id="page10">
+        <div class="card">
+            <h1>Yay! You found it 💖</h1>
+            <p>Apke liye ek voice note hai 💌</p>
+            <audio id="voiceNoteAudio" preload="none" src="photos/audio1.mpeg"></audio>
+            <button class="answer-btn" id="voiceNoteToggle" onclick="playVoiceNote()">Play Voice Note 🔊</button>
+            <p class="answer-feedback" id="voiceNoteFeedback" aria-live="polite"></p>
+            <button class="answer-btn" onclick="continueAfterVoiceNote()">Hogyaa ab aage chloo</button>
+        </div>
+    </section>
+
+    <section class="page" id="page11">
+        <div class="card">
+            <video controls playsinline preload="metadata" style="display:block; width:100%; max-width:760px; max-height:70vh; object-fit:contain; margin:20px auto; border-radius:16px; box-shadow:0 6px 22px #0003;">
+                <source src="photos/video1.mp4" type="video/mp4">
+                Your browser does not support video playback.
+            </video>
+            <p>Umid h Mera yh chotuuu sa surprise dekh kr apke face pr bikul aisa hi smile aya ho malkinnnn meriiii😘😘😘... I LOVEEEEEE YOUUUUUU MERIIII PYARIIIIII SI SUNDAR SI CHOTIII SI GOLUU-MOLUUUU MALKINNNNNNN 🙈🙈🙈</p>
+            <button class="answer-btn" onclick="endWebsite()">AB HOGYA SB</button>
+        </div>
+    </section>
+
+<div id="endingScreen" aria-hidden="true">
+    <div class="ending-content">
+        <div class="ending-heart">💖</div>
+        <h1>THE END</h1>
+        <p>Merii pyarii malkinnn 💕</p>
+    </div>
+</div>
+<div id="photoZoom" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Zoomed photo">
+    <button id="photoZoomClose" type="button" aria-label="Close zoom">&times;</button>
+    <img id="photoZoomImage" alt="">
+</div>
+<script>
+
+const photoZoom = document.getElementById("photoZoom");
+const photoZoomImage = document.getElementById("photoZoomImage");
+function closePhotoZoom() {
+    photoZoom.classList.remove("is-visible");
+    photoZoom.setAttribute("aria-hidden", "true");
+    photoZoomImage.removeAttribute("src");
+    document.body.style.overflow = "";
+}
+document.querySelectorAll(".page img").forEach(photo => {
+    photo.classList.add("photo-zoom-trigger");
+    photo.setAttribute("tabindex", "0");
+    photo.setAttribute("role", "button");
+    photo.setAttribute("aria-label", `Zoom in: ${photo.alt || "photo"}`);
+    const openPhoto = () => {
+        photoZoomImage.src = photo.currentSrc || photo.src;
+        photoZoomImage.alt = photo.alt || "Zoomed photo";
+        photoZoom.classList.add("is-visible");
+        photoZoom.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        document.getElementById("photoZoomClose").focus();
+    };
+    photo.addEventListener("click", openPhoto);
+    photo.addEventListener("keydown", event => {
+        if (event.key === "Enter" || event.key === " ") { event.preventDefault(); openPhoto(); }
+    });
+});
+document.getElementById("photoZoomClose").addEventListener("click", closePhotoZoom);
+photoZoom.addEventListener("click", event => { if (event.target === photoZoom || event.target === photoZoomImage) closePhotoZoom(); });
+document.addEventListener("keydown", event => { if (event.key === "Escape" && photoZoom.classList.contains("is-visible")) closePhotoZoom(); });
+
+const welcomeScreen = document.getElementById("welcomeScreen");
+const welcomeSymbols = ["\u{1F496}", "\u{1F495}", "\u{2728}", "\u{1F338}", "\u{1F497}"];
+for (let i = 0; i < 32; i++) {
+    const particle = document.createElement("span");
+    particle.className = "ending-particle";
+    particle.textContent = welcomeSymbols[Math.floor(Math.random() * welcomeSymbols.length)];
+    particle.style.setProperty("--left", Math.random() * 100 + "vw");
+    particle.style.setProperty("--size", (18 + Math.random() * 30) + "px");
+    particle.style.setProperty("--duration", (4 + Math.random() * 4) + "s");
+    particle.style.setProperty("--delay", Math.random() * 1.4 + "s");
+    welcomeScreen.appendChild(particle);
+}
+setTimeout(() => {
+    welcomeScreen.classList.add("is-hidden");
+    welcomeScreen.setAttribute("aria-hidden", "true");
+    setTimeout(() => welcomeScreen.remove(), 850);
+}, 2600);
+
+let countdown = 10;
+const countdownNumber = document.getElementById("countdownNumber");
+
+const countdownTimer = setInterval(() => {
+    countdown -= 1;
+    countdownNumber.textContent = countdown;
+    if (countdown <= 0) {
+        clearInterval(countdownTimer);
+        document.getElementById("countdownTitle").style.display = "none";
+        document.getElementById("countdownDisplay").style.display = "none";
+        document.getElementById("countdownQuestion").style.display = "flex";
+        playPageEffect(1);
+    }
+}, 1000);
+
+function dodgeAnswer(button) {
+    const area = button.parentElement;
+    const horizontalRange = Math.max(12, Math.min(85, (area.clientWidth - button.offsetWidth) / 2));
+    const verticalRange = Math.max(12, Math.min(28, (area.clientHeight - button.offsetHeight) / 2));
+    button.style.left = (Math.random() * horizontalRange * 2 - horizontalRange) + "px";
+    button.style.top = (Math.random() * verticalRange * 2 - verticalRange) + "px";
+}
+
+let birthdayAudioContext = null;
+let birthdayAudioReady = false;
+
+function prepareHappyBirthdayAudio() {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) return;
+    if (!birthdayAudioContext) birthdayAudioContext = new AudioContextClass();
+    birthdayAudioContext.resume().then(() => { birthdayAudioReady = true; }).catch(() => {});
+}
+
+function playHappyBirthdayTune() {
+    if (!birthdayAudioReady || !birthdayAudioContext) return;
+    const melody = [
+        [392, .34], [392, .18], [440, .52], [392, .52], [523.25, .52], [493.88, .95],
+        [392, .34], [392, .18], [440, .52], [392, .52], [587.33, .52], [523.25, .95],
+        [392, .34], [392, .18], [783.99, .52], [659.25, .52], [523.25, .52], [493.88, .52], [440, .95],
+        [698.46, .34], [698.46, .18], [659.25, .52], [523.25, .52], [587.33, .52], [523.25, 1.05]
+    ];
+    let startAt = birthdayAudioContext.currentTime + .08;
+    melody.forEach(([frequency, duration]) => {
+        const oscillator = birthdayAudioContext.createOscillator();
+        const volume = birthdayAudioContext.createGain();
+        oscillator.type = "sine";
+        oscillator.frequency.value = frequency;
+        volume.gain.setValueAtTime(0, startAt);
+        volume.gain.linearRampToValueAtTime(.13, startAt + .025);
+        volume.gain.setValueAtTime(.13, startAt + duration * .72);
+        volume.gain.exponentialRampToValueAtTime(.001, startAt + duration);
+        oscillator.connect(volume);
+        volume.connect(birthdayAudioContext.destination);
+        oscillator.start(startAt);
+        oscillator.stop(startAt + duration);
+        startAt += duration + .035;
+    });
+}
+function answerLoveQuestion(isCorrect) {
+    const feedback = document.getElementById("loveFeedback");
+    if (isCorrect) {
+        prepareHappyBirthdayAudio();
+        feedback.textContent = "Ab sahi booli na ap merii pyarii malkinnn ji 😘";
+        document.getElementById("countdownQuestion").classList.add("success-state");
+        document.querySelectorAll("#countdownOptions .answer-btn").forEach(button => {
+            button.disabled = true;
+        });
+        setTimeout(() => {
+            document.getElementById("countdownPage").classList.remove("active");
+            document.getElementById("page1").classList.add("active");
+            playHappyBirthdayTune();
+            playPageEffect(1);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }, 2600);
+        return;
+    }
+    feedback.textContent = "KYA BOOLI AP WAPAS BOOLNA 😠😡";
+    const noButton = document.getElementById("noLoveButton");
+    dodgeAnswer(noButton);
+    noButton.animate([{ scale: "1" }, { scale: "1.08" }, { scale: "1" }], { duration: 320 });
+}
+
+
+// Change page: only one page is visible at a time
+function nextPage(pageNumber) {
+
+    document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active");
+    });
+
+    const next = document.getElementById("page" + pageNumber);
+
+    if (next) {
+        next.classList.add("active");
+        playPageEffect(pageNumber);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+}
+
+
+// Check whether selected answer is correct
+function checkAnswer(button) {
+
+    const questionBox = button.closest(".question-box");
+
+    if (questionBox.dataset.locked === "true") return;
+
+
+    const correctAnswer = questionBox.dataset.correct;
+    const selectedAnswer = button.dataset.answer;
+    const nextPageNumber = questionBox.dataset.next;
+    const feedback = questionBox.querySelector(".answer-feedback");
+
+    if (selectedAnswer === correctAnswer) {
+
+        questionBox.dataset.locked = "true";
+
+
+
+
+
+
+        feedback.textContent = questionBox.closest("#page1") ? "Awwww merii pyariii malkinnn😘😘" : nextPageNumber === "3" ? "AWWW sachh merii pyarii malkinn😁😁 aur kuch bhi krdena thikkkk🙈🙈" : nextPageNumber === "4" ? "AWWW merii pyarii malkinn hmlog sath mein ghumne chlegee wo bhi APKE paisoo se thikkk😁😁😁" : nextPageNumber === "5" ? "Aoo miloo ab tb krte h kuchhh aurr apkee sathhh🌚🌚" : nextPageNumber === "6" || nextPageNumber === "gift" ? "AAO MILOO APKA HAWAS DURR KRDEGE ABBB🙈🙈" : "Correct! You unlocked the next surprise 💗";
+
+        questionBox.querySelectorAll(".answer-btn").forEach(btn => {
+            btn.disabled = true;
+        });
+
+        setTimeout(() => {
+
+            if (nextPageNumber === "gift") {
+
+                document.getElementById("finalGift").style.display = "block";
+
+                createConfetti();
+
+
+                window.scrollTo({
+                    top: document.body.scrollHeight,
+                    behavior: "smooth"
+                });
+
+            } else {
+
+                nextPage(Number(nextPageNumber));
+
+            }
+
+        }, 2000);
+
+
+    } else {
+
+
+
+                                feedback.textContent = nextPageNumber === "6" ? "Jhutt bol rhii ho na Apko bs HAWAS H mere liyee😤😤" : nextPageNumber === "5" ? "Ni Ptaa H tho jaoo ptaa krkeee aao tb baaat krna by😤😤😤" : nextPageNumber === "4" ? "Hmm apkoo ghumanee ni lekr jaate h kya🥺🥺" : "Aap tho merii pyariii malkinn ho na maaf krdo apne mallik ko🥺";
+        dodgeAnswer(button);
+
+    }
+}
+
+document.getElementById("locationAnswer").addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        checkLocationAnswer();
+    }
+});
+
+document.getElementById("endCodeInput").addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        checkEndCode();
+    }
+});
+
+function checkLocationAnswer() {
+    const answer = document.getElementById("locationAnswer").value
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, " ")
+        .trim();
+    const feedback = document.getElementById("locationFeedback");
+    const mentionsHeart = /\b(dil|heart|hriday|hirday)\b/.test(answer);
+    const mentionsRelationship = /\b(apke|aapke|your|tere|tumhare|mein|me|inside|within|live|lives)\b/.test(answer);
+    const mentionsMallik = /\bmal+i?k+\b/.test(answer);
+
+    if (mentionsHeart && (mentionsRelationship || mentionsMallik)) {
+        feedback.textContent = "Bilkul sahi jawab malkinnn😘";
+        document.getElementById("locationAnswer").disabled = true;
+        document.querySelector("#page6 .answer-btn").disabled = true;
+        setTimeout(() => nextPage(7), 2000);
+    } else {
+        feedback.textContent = "Dobara socho malkinn 🤭🤭";
+    }
+}
+
+
+
+let headphoneConfirmations = 0;
+
+function startHeadphoneCheck() {
+    headphoneConfirmations = 0;
+    document.getElementById("headphoneOptions").style.display = "none";
+    document.getElementById("headphoneFeedback").textContent = "sachmeinn lgaa li na";
+    document.getElementById("confirmHeadphone").style.display = "inline-block";
+}
+
+function confirmHeadphone() {
+    headphoneConfirmations += 1;
+    const confirmButton = document.getElementById("confirmHeadphone");
+    confirmButton.style.transform = `translate(${Math.random() * 100 - 50}px, ${Math.random() * 50 - 25}px)`;
+    if (headphoneConfirmations < 2) {
+        document.getElementById("headphoneFeedback").textContent = "sachmeinn lgaa li na";
+    } else {
+        document.getElementById("headphoneFeedback").textContent = "THIKKK AAP BOLTII HO THO MAAN LIYE";
+        document.getElementById("confirmHeadphone").style.display = "none";
+        document.getElementById("proceedFinal").style.display = "inline-block";
+    }
+}
+
+function proceedToFinalSurprise() {
+    document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
+    document.getElementById("page8").classList.add("active");
+    createConfetti();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function playVoiceNote() {
+    const audio = document.getElementById("voiceNoteAudio");
+    const feedback = document.getElementById("voiceNoteFeedback");
+    const toggle = document.getElementById("voiceNoteToggle");
+    if (!audio.getAttribute("src")) {
+        feedback.textContent = "Voice note source abhi add nahi hua hai.";
+        return;
+    }
+    if (!audio.paused) {
+        audio.pause();
+        audio.currentTime = 0;
+        toggle.textContent = "Play Voice Note \u{1F50A}";
+        feedback.textContent = "Voice note stopped.";
+        return;
+    }
+    audio.play().then(() => {
+        toggle.textContent = "Stop Voice Note \u{23F9}";
+        feedback.textContent = "";
+    }).catch(() => {
+        feedback.textContent = "Voice note play nahi ho paya. Dobara try kro.";
+    });
+}
+
+function continueAfterVoiceNote() {
+    const audio = document.getElementById("voiceNoteAudio");
+    audio.pause();
+    audio.currentTime = 0;
+    document.getElementById("voiceNoteToggle").textContent = "Play Voice Note \u{1F50A}";
+    document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
+    document.getElementById("page11").classList.add("active");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+function openEndCodePage() {
+    document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
+    document.getElementById("page9").classList.add("active");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function checkEndCode() {
+    const input = document.getElementById("endCodeInput");
+    const feedback = document.getElementById("endCodeFeedback");
+    if (input.value.replace(/\D/g, "") === "1111") {
+        document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
+        document.getElementById("page10").classList.add("active");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+        feedback.textContent = "Galat code, dobara try kro 🤭";
+    }
+}
+// Background music control
+// Celebration animation used after the countdown
+function createCelebration() {
+    const flowers = ["🌸", "🌷", "🌼", "💮", "🌺"];
+    const confetti = ["✨", "💕", "💖", "🎉", "❤️"];
+    dropParticles(flowers, "flower", 34);
+    dropParticles(confetti, "confetti", 45);
+}
+
+function dropParticles(symbols, className, amount) {
+    for (let i = 0; i < amount; i++) {
+        const particle = document.createElement("div");
+        particle.className = className;
+        particle.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        particle.style.left = Math.random() * 100 + "vw";
+        particle.style.fontSize = (16 + Math.random() * 22) + "px";
+        particle.style.animationDuration = (3 + Math.random() * 3) + "s";
+        particle.style.animationDelay = (Math.random() * 1.2) + "s";
+        document.body.appendChild(particle);
+        setTimeout(() => particle.remove(), 7000);
+    }
+}
+
+function playPageEffect(pageNumber) {
+    const effects = {
+        1: { symbols: ["🌸", "🌷", "✨"], count: 28 },
+        2: { symbols: ["💕", "💗", "💖"], count: 22 },
+        3: { symbols: ["✨", "⭐", "💫"], count: 30 },
+        4: { symbols: ["🌼", "🌺", "🌸"], count: 26 },
+        5: { symbols: ["🎉", "🎊", "💖", "✨", "🌹"], count: 48 }
+    };
+    const effect = effects[pageNumber];
+    if (!effect || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    for (let i = 0; i < effect.count; i++) {
+        const particle = document.createElement("span");
+        particle.className = "page-effect";
+        particle.textContent = effect.symbols[Math.floor(Math.random() * effect.symbols.length)];
+        particle.style.left = Math.random() * 100 + "vw";
+        particle.style.fontSize = (16 + Math.random() * 18) + "px";
+        particle.style.animationDelay = (Math.random() * 0.9) + "s";
+        document.body.appendChild(particle);
+        setTimeout(() => particle.remove(), 5200);
+    }
+}
+
+// Confetti animation
+function createConfetti() {
+
+    const symbols = ["❤️", "💗", "✨", "💕", "🌸"];
+
+    for (let i = 0; i < 70; i++) {
+
+        const confetti = document.createElement("div");
+
+        confetti.className = "confetti";
+        confetti.textContent =
+            symbols[Math.floor(Math.random() * symbols.length)];
+
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.animationDuration =
+            (2 + Math.random() * 3) + "s";
+
+        confetti.style.fontSize =
+            (12 + Math.random() * 18) + "px";
+
+        document.body.appendChild(confetti);
+
+        setTimeout(() => {
+            confetti.remove();
+        }, 5000);
+
+    }
+}
+
+function endWebsite() {
+    document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
+    const ending = document.getElementById("endingScreen");
+    ending.setAttribute("aria-hidden", "false");
+    ending.classList.add("is-visible");
+    document.body.style.overflow = "hidden";
+    const symbols = ["💖", "💕", "✨", "🌸", "💗"];
+    for (let i = 0; i < 42; i++) {
+        const particle = document.createElement("span");
+        particle.className = "ending-particle";
+        particle.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        particle.style.setProperty("--left", Math.random() * 100 + "vw");
+        particle.style.setProperty("--size", (18 + Math.random() * 30) + "px");
+        particle.style.setProperty("--duration", (4 + Math.random() * 4) + "s");
+        particle.style.setProperty("--delay", Math.random() * 1.8 + "s");
+        ending.appendChild(particle);
+        setTimeout(() => particle.remove(), 9000);
+    }
+}
+</script>
+
+</body>
+</html>
